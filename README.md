@@ -24,13 +24,13 @@ SchoolFriend.application_key = ''
 SchoolFriend.secret_key = ''
 SchoolFriend.api_server = 'http://api.odnoklassniki.ru'
 
-# Example call to a method that doesn't require a session or oauth2 access token  
+# Example call to a method that doesn't require a session or oauth2 access token
 puts SchoolFriend.users.is_app_user(:uid => "425634635") # Note that method name is underscored
 
 # Init an Oauth2 Session
 # You can init an oauth session in two ways:
 # 1. By providing the oauth code and let this gem to acquire the access token for you
-session = SchoolFriend.session(:oauth_code => code)
+session = SchoolFriend.session(:oauth_code => code, :redirect_uri => 'http://my.domain.com')
 
 # 2. By providing an access token and a refresh token you already have
 session = SchoolFriend.session(:access_token => access_token, :refresh_token => refresh_token)
