@@ -7,7 +7,7 @@ module SchoolFriend
   class << self
     extend Forwardable
 
-    attr_accessor :application_id, :application_key, :secret_key, :api_server, :logger
+    attr_accessor :application_id, :application_key, :secret_key, :api_server, :logger, :redirect_uri
 
     def_delegators :session, *REST_NAMESPACES
 
