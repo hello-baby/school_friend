@@ -15,8 +15,8 @@ module SchoolFriend
     class RequireSessionScopeError < ArgumentError
     end
 
-    class OauthCodeAuthenticationFailedError < StandardError  
-    end  
+    class OauthCodeAuthenticationFailedError < StandardError
+    end
 
     attr_reader :options, :session_scope
 
@@ -42,7 +42,8 @@ module SchoolFriend
     if options[:oauth_code]
       response, data = \
         _post_request(api_server + "/oauth/token.do",
-                      {"code" => options[:oauth_code], "redirect_uri" => "http://127.0.0.1:2000",
+                      {"code" => options[:oauth_code],
+                       "redirect_uri" => (options[:redirect_uri] || SchoolFriend.redirect_uri || "http://127.0.0.1:2000"),
                        "client_id" => SchoolFriend.application_id, "client_secret" => SchoolFriend.secret_key,
                        "grant_type" => 'authorization_code'})
 
@@ -86,7 +87,7 @@ module SchoolFriend
           options[:access_token] = response["access_token"]
 
           SchoolFriend.logger.debug "#{__method__}: Token received: #{options[:access_token]}"
-          
+
           return true
         el
           SchoolFriend.logger.warn "#{__method__}: Failed to refresh access token - request Failed"
